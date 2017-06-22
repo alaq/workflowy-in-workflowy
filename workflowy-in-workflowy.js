@@ -48,8 +48,9 @@ role="dialog" style="position:fixed; width:450px; z-index: 100; bottom:20px; rig
   };
     // Let's hide some items
     parent.frames.wiwName.document.getElementById("wfagenda-div").style.display = "none";
-    //parent.frames.wiwName.document.getElementsByClassName("page")[1].style.paddingLeft = "5px";
-    //parent.frames.wiwName.document.getElementsByClassName("page")[0].style.paddingRight = "5px";
+    parent.frames.wiwName.document.getElementById("logo").style.display = "none";
+    parent.frames.wiwName.document.getElementById("savedViewHUDButton").style.display = "none";
+    //parent.frames.wiwName.document.getElementsByClassName("page")[1].style.padding = "5px";
     //parent.frames.wiwName.document.getElementById("getMoreSpaceButtonTopRight").style.display = "none";
     //parent.frames.wiwName.document.getElementById("bottomLinks").style.display = "none";
     //parent.frames.wiwName.document.getElementById("proPitch").style.display = "none";
