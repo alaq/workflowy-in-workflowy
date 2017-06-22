@@ -124,13 +124,24 @@ function refresh() {
   $('#wfagenda-agenda-view').html(`<ul>${str}</ul>`);
 }
 
+function changePopUpTitle(){
+  document.getElementById("wiwTitle").innerHTML = iframeTitle = parent.frames.wiwName.document.title;
+}
+
 function toggleVisibility() {
+  var newLinkText;
   $('#wfagenda-content').toggle();
+  if ($('#wfagenda-content').is(':visible')) {
+    changePopUpTitle();
+  } else {
+    document.getElementById("wiwTitle").innerHTML = "Workflowy In Workflowy";
+  }
 }
 
 function delayedRefresh() {
     if (window.PROJECT_TREE_DATA) {
         refresh();
+        changePopUpTitle();
     }
     setTimeout(delayedRefresh, 3000);
 }
@@ -140,10 +151,10 @@ $(document).ready(function(){
 <div class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-settingsPopup" id="wfagenda-div" 
 role="dialog" style="position:fixed; width:450px; z-index: 100; bottom:20px; right:20px; padding: 0px; border: 1px solid #999; background-color: #fff;">
 <a id="wfagenda-toggle-link" href="#" onclick="wfagenda.toggleVisibility(); return false;" style="text-decoration: none">
-<div class="title ui-dialog-titlebar ui-widget-header">Agenda</div></a>  
+<div id="wiwTitle" class="title ui-dialog-titlebar ui-widget-header">Workflowy in Workflowy</div></a>  
 <div id="wfagenda-content" style="margin: 10px; display: none;">
     <div>
-    <iframe height="500px" width="440px" sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin" src="https://workflowy.com"></iframe>
+    <iframe id="wiw" name="wiwName" onload="iframeTitle=parent.frames['wiwName'].document.title;" height="500px" width="440px" sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin" src="https://workflowy.com"></iframe>
     </div>
   </div>
 </div>
@@ -152,7 +163,17 @@ role="dialog" style="position:fixed; width:450px; z-index: 100; bottom:20px; rig
     "refresh": refresh,
     "toggleVisibility": toggleVisibility,
   };
-  
+
   delayedRefresh();
-  
+
 });
+
+// Borrowing title tweak from https://greasyfork.org/scripts/3381-workflowy-title-tweak/code/WorkFlowy%20-%20Title%20tweak.user.js
+
+setInterval(function() {
+    if (document.title == 'WorkFlowy - Organize your brain.')
+        document.title = 'WorkFlowy';
+    else
+        document.title = document.title.replace(/ - WorkFlowy$/, '');
+    if ($('#wfagenda-content').is(':visible')) changePopUpTitle();
+}, 100);
