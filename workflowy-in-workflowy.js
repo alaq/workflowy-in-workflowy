@@ -12,10 +12,11 @@ function escapeRegExp(str) {
 
 function refresh() {
     // empty for now
+    $('#header').toggle();
 }
 
 function changePopUpTitle(){
-  document.getElementById("wiwTitle").innerHTML = iframeTitle = parent.frames.wiwName.document.title;
+  document.getElementById("wiwTitle").innerHTML = parent.frames.wiwName.document.title;
 }
 
 function toggleVisibility() {
@@ -36,16 +37,22 @@ role="dialog" style="position:fixed; width:450px; z-index: 100; bottom:20px; rig
 <div id="wiwTitle" class="title ui-dialog-titlebar ui-widget-header">Workflowy in Workflowy</div></a>
 <div id="wfagenda-content" style="margin: 10px; display: none;">
     <div>
-    <iframe id="wiw" name="wiwName" onload="iframeTitle=parent.frames['wiwName'].document.title;" height="500px" width="440px" sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin" src="https://workflowy.com"></iframe>
+    <iframe id="wiw" name="wiwName" onload="$("#wiw").contents().find("#header").toggle();" height="500px" width="440px" sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin" src="https://workflowy.com"></iframe>
     </div>
   </div>
 </div>
 `);
-
   window.wfagenda = {
     "refresh": refresh,
     "toggleVisibility": toggleVisibility,
   };
+    // Let's hide some items
+    parent.frames.wiwName.document.getElementById("wfagenda-div").style.display = "none";
+    //parent.frames.wiwName.document.getElementsByClassName("page")[1].style.paddingLeft = "5px";
+    //parent.frames.wiwName.document.getElementsByClassName("page")[0].style.paddingRight = "5px";
+    //parent.frames.wiwName.document.getElementById("getMoreSpaceButtonTopRight").style.display = "none";
+    //parent.frames.wiwName.document.getElementById("bottomLinks").style.display = "none";
+    //parent.frames.wiwName.document.getElementById("proPitch").style.display = "none";
 });
 
 // Borrowing title tweak from https://greasyfork.org/scripts/3381-workflowy-title-tweak/code/WorkFlowy%20-%20Title%20tweak.user.js
