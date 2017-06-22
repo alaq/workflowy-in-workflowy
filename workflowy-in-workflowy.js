@@ -94,7 +94,7 @@ function refresh() {
   var completedOnly = $('#wfagenda-completed-only').is(':checked');
   var nodes = allNodesMatchingAnyPrefix(PROJECT_TREE_DATA.mainProjectTreeInfo.rootProjectChildren,prefixes,completedOnly);
   var nodesAndDates = findNodesAndDates(nodes,prefixes);
-  
+
   var i,j,d,n;
   var nodesByDate = {};
   for (i in nodesAndDates) {
@@ -106,7 +106,7 @@ function refresh() {
       nodesByDate[d].push(nodesAndDates[i]);
     }
   }
-  
+
   var sortedDates = Object.keys(nodesByDate).sort();
   var str = "",tasks = "";
   for (d in sortedDates) {
@@ -121,7 +121,7 @@ function refresh() {
               </ul>
             </li>`;
   }
-  $('#wfagenda-agenda-view').html(`<ul>${str}</ul>`);
+  //$('#wfagenda-agenda-view').html(`<ul>${str}</ul>`);
 }
 
 function changePopUpTitle(){
@@ -141,17 +141,22 @@ function toggleVisibility() {
 function delayedRefresh() {
     if (window.PROJECT_TREE_DATA) {
         refresh();
-        changePopUpTitle();
     }
     setTimeout(delayedRefresh, 3000);
 }
+console.log('outside');
+$('#wiwName').load( function() {
+    console.log('hello');
+    $('wiwName').contents().find("head")
+      .append($("<style type='text/css'>  .proPitch{display:none;}  </style>"));
+});
 
 $(document).ready(function(){
-  $('body').append(`
-<div class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-settingsPopup" id="wfagenda-div" 
+        $('body').append(`
+<div class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-settingsPopup" id="wfagenda-div"
 role="dialog" style="position:fixed; width:450px; z-index: 100; bottom:20px; right:20px; padding: 0px; border: 1px solid #999; background-color: #fff;">
 <a id="wfagenda-toggle-link" href="#" onclick="wfagenda.toggleVisibility(); return false;" style="text-decoration: none">
-<div id="wiwTitle" class="title ui-dialog-titlebar ui-widget-header">Workflowy in Workflowy</div></a>  
+<div id="wiwTitle" class="title ui-dialog-titlebar ui-widget-header">Workflowy in Workflowy</div></a>
 <div id="wfagenda-content" style="margin: 10px; display: none;">
     <div>
     <iframe id="wiw" name="wiwName" onload="iframeTitle=parent.frames['wiwName'].document.title;" height="500px" width="440px" sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin" src="https://workflowy.com"></iframe>
@@ -159,6 +164,7 @@ role="dialog" style="position:fixed; width:450px; z-index: 100; bottom:20px; rig
   </div>
 </div>
 `);
+
   window.wfagenda = {
     "refresh": refresh,
     "toggleVisibility": toggleVisibility,
@@ -177,3 +183,17 @@ setInterval(function() {
         document.title = document.title.replace(/ - WorkFlowy$/, '');
     if ($('#wfagenda-content').is(':visible')) changePopUpTitle();
 }, 100);
+
+// Catch ALT+A as to open + focus in pop-up
+document.onkeyup=function(e){
+  var k = k || window.event; // for IE to cover IEs window event-object
+  if(k.altKey && k.which == 65) {
+    if ($('#wfagenda-content').is(':visible')) {
+      return false;
+    } else {
+        toggleVisilility();
+        $(wiwName).focus();
+    }
+    return false;
+  }
+};
