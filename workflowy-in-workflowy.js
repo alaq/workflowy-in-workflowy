@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name        workflowy
-// @namespace   http://palesz.org/
+// @name        workflowy-in-workflowy
+// @namespace   
 // @include     https://workflowy.com/*
-// @version     1.1
+// @version     1
 // @grant       none
 // ==/UserScript==
 
@@ -143,11 +143,7 @@ role="dialog" style="position:fixed; width:450px; z-index: 100; bottom:20px; rig
 <div class="title ui-dialog-titlebar ui-widget-header">Agenda</div></a>  
 <div id="wfagenda-content" style="margin: 10px; display: none;">
     <div>
-      <input id="wfagenda-date-tags" type="text" placeholder="#due (date tag prefix(es))" value="#d-"/>
-      <input id="wfagenda-completed-only" type="checkbox" checked>Hide Completed</input>
-      <div onClick="wfagenda.refresh(); id="currentTheme" class="fancyButton galleryShowButton">Refresh</div>
-    </div>
-    <div class="content" id="wfagenda-agenda-view" style="margin-top: 20px; overflow-y: scroll; height: 300px;">
+    <iframe height="500px" width="440px" sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin" src="https://workflowy.com"></iframe>
     </div>
   </div>
 </div>
