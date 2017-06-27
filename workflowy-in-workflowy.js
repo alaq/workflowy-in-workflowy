@@ -32,12 +32,12 @@ function toggleVisibility() {
 $(document).ready(function(){
         $('body').append(`
 <div class="ui-dialog ui-widget ui-widget-content ui-corner-all  ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-settingsPopup" id="wfagenda-div"
-role="dialog" style="position:fixed; width:850px; z-index: 100; bottom:20px; right:20px; padding: 0px; border: 1px solid #999; background-color: #fff;">
+role="dialog" style="position:fixed; width:450px; z-index: 100; bottom:20px; right:20px; padding: 0px; border: 1px solid #999; background-color: #fff;">
 <a id="wfagenda-toggle-link" href="#" onclick="wfagenda.toggleVisibility(); return false;" style="text-decoration: none">
 <div id="wiwTitle" class="title ui-dialog-titlebar ui-widget-header">Workflowy in Workflowy</div></a>
 <div id="wfagenda-content" style="margin: 10px; display: none;">
     <div>
-    <iframe id="wiw" name="wiwName" onload="$("#wiw").contents().find("#header").toggle();" height="500px" width="840px" sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin" src="https://workflowy.com"></iframe>
+    <iframe id="wiw" name="wiwName" onload="$("#wiw").contents().find("#header").toggle();" height="500px" width="440px" sandbox="allow-scripts allow-pointer-lock allow-forms allow-same-origin" src="https://workflowy.com"></iframe>
     </div>
   </div>
 </div>
@@ -109,6 +109,8 @@ document.onkeyup=function(k){
 	"    border-bottom: none !important;",
 	"    background: #FFFFFF !important;",
 	"    padding: 3px 0 !important;",
+    "    width: 440px !important;",
+    "    min-width: 440px !important;",
 	"}",
     "#body {",
 	"    background: #FFFFFF !important;",
@@ -116,10 +118,16 @@ document.onkeyup=function(k){
     "#buttonBar {",
 	"    display: none;",
 	"}",
+    "#helpButton {",
+	"    display: none;",
+	"}",
     "#savedViewHUDButton {",
 	"    display: none;",
 	"}",
 	"#logo {",
+    "    display: none;",
+	"}",
+	".pageStar {",
     "    display: none;",
 	"}",
 	"    #searchBox::-webkit-input-placeholder {",
